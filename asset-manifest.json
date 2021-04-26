@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/hymnfinder/static/css/main.22b6e383.chunk.css",
-    "main.js": "/hymnfinder/static/js/main.7267a31f.chunk.js",
-    "main.js.map": "/hymnfinder/static/js/main.7267a31f.chunk.js.map",
+    "main.js": "/hymnfinder/static/js/main.7488dc92.chunk.js",
+    "main.js.map": "/hymnfinder/static/js/main.7488dc92.chunk.js.map",
     "runtime-main.js": "/hymnfinder/static/js/runtime-main.8cc139e3.js",
     "runtime-main.js.map": "/hymnfinder/static/js/runtime-main.8cc139e3.js.map",
     "static/js/2.0bee2635.chunk.js": "/hymnfinder/static/js/2.0bee2635.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.8cc139e3.js",
     "static/js/2.0bee2635.chunk.js",
     "static/css/main.22b6e383.chunk.css",
-    "static/js/main.7267a31f.chunk.js"
+    "static/js/main.7488dc92.chunk.js"
   ]
 }
