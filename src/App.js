@@ -1,12 +1,35 @@
 import './App.css';
-import { TextField, Button, CircularProgress, Typography } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  CircularProgress,
+  Typography,
+  createMuiTheme,
+  ThemeProvider,
+  Snackbar
+} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import HymnResult from './hymnResult.jsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCross } from '@fortawesome/free-solid-svg-icons'
+
+const appTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#EB4B64',
+    },
+    secondary: {
+      main: '#F7BBD0',
+    },
+  }
+})
 
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [hymnData, setHymnData] = useState();
   const [waitingResponse, setWaitingResponse] = useState(false);
+  const [showError, setShowError] = useState(false);
   const pageStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -24,18 +47,23 @@ function App() {
     top: 0,
     backgroundColor: '#FFFFFF',
     zIndex: '1',
-    paddingBottom: '20px'
+    paddingBottom: '20px',
+    paddingTop: '20px'
   }
   const onSearch = () => {
     setWaitingResponse(true);
     // Fetch data
     fetch(`https://hymnary.org/api/scripture?reference=${inputValue}`)
-      .then(response => response.json())
+      .then(response => {
+        return response.json()
+      })
       .then(data => {
         setHymnData(data);
-        console.log(data);
-        setWaitingResponse(false);
       })
+      .catch((error) => {
+        setShowError(true);
+      })
+      .finally(() => setWaitingResponse(false))
   }
   /**
    * Renders the hymn data
@@ -72,25 +100,30 @@ function App() {
     return (null)
   }
   return (
-    <div style={pageStyle}>
-      <div style={boxWrapperStyle}>
-        <Typography variant="h2" component="h2">
-          Hymn Finder
-        </Typography>
-        <Typography color="textSecondary">
-          By Ashley Cheung
-        </Typography>
-        <TextField
-          value={inputValue}
-          onChange={(e) => {setInputValue(e.target.value)}}
-          style={{ width: '100%' }}
-          id='standard-basic'
-          label='Bible Verse'/>
-        <Button onClick={onSearch} style={{ marginTop: '50px' }} color='primary'  variant='contained'>Search Hymn</Button>
+    <ThemeProvider theme={appTheme}>
+      <Snackbar anchorOrigin={{vertical: 'top', horizontal: 'center'}} open={showError} autoHideDuration={6000} onClose={() => {setShowError(false)}}>
+        <Alert severity='error'>Could not find the given bible verse</Alert>
+      </Snackbar>
+      <div style={pageStyle}>
+        <div style={boxWrapperStyle}>
+          <Typography variant="h2" component="h2">
+            <FontAwesomeIcon icon={faCross}/>  Hymn Finder
+          </Typography>
+          <Typography color="textSecondary">
+            By Ashley Cheung
+          </Typography>
+          <TextField
+            value={inputValue}
+            onChange={(e) => {setInputValue(String(e.target.value))}}
+            style={{ width: '100%' }}
+            id='standard-basic'
+            label='Bible Verse'/>
+          <Button onClick={onSearch} style={{ marginTop: '50px' }} color='primary'  variant='contained'>Search Hymn</Button>
+        </div>
+        { renderWaiting() }
+        { renderHymnData() }
       </div>
-      { renderWaiting() }
-      { renderHymnData() }
-    </div>
+    </ThemeProvider>
   );
 }
 
