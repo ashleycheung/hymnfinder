@@ -106,7 +106,7 @@ function App() {
       </Snackbar>
       <div style={pageStyle}>
         <div style={boxWrapperStyle}>
-          <Typography variant="h2" component="h2">
+          <Typography style={{ fontSize: '5vh' }} variant="h2" component="h2">
             <FontAwesomeIcon icon={faCross}/>  Hymn Finder
           </Typography>
           <Typography color="textSecondary">
