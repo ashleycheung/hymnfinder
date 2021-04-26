@@ -12,8 +12,8 @@ function App() {
     flexDirection: 'column',
     textAlign: 'center',
     justifyContent: 'center',
-    paddingLeft: '30%',
-    paddingRight: '30%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
     paddingTop: '20vh',
   }
   const boxWrapperStyle = {
